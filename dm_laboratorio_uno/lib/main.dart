@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,6 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SvgPicture.asset(
+              "assets/icons/NoFace.svg",
+              width: 150,
+              semanticsLabel: 'Acme Logo'
+            ),
             const Text(
               'Haz presionado el botón esta cantidad de veces:',
             ),
