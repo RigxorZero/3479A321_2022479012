@@ -74,26 +74,34 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _resetCounter, // Cambiamos la funcionalidad del botón flotante
-        tooltip: 'Reset',
-        child: const Icon(Icons.refresh), // Icono de reinicio
+      floatingActionButton: fa_btn(),
+      bottomNavigationBar: btn_bar(),
+    );
+  }
+
+  BottomAppBar btn_bar() {
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            onPressed: _decrementCounter, // Funcionalidad para restar
+            icon: const Icon(Icons.remove_circle), // Icono de restar
+          ),
+          IconButton(
+            onPressed: _incrementCounter, // Funcionalidad para sumar
+            icon: const Icon(Icons.add_circle), // Icono de sumar
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: _decrementCounter, // Funcionalidad para restar
-              icon: const Icon(Icons.remove_circle), // Icono de restar
-            ),
-            IconButton(
-              onPressed: _incrementCounter, // Funcionalidad para sumar
-              icon: const Icon(Icons.add_circle), // Icono de sumar
-            ),
-          ],
-        ),
-      ),
+    );
+  }
+
+  FloatingActionButton fa_btn() {
+    return FloatingActionButton(
+      onPressed: _resetCounter, // Cambiamos la funcionalidad del botón flotante
+      tooltip: 'Reset',
+      child: const Icon(Icons.refresh), // Icono de reinicio
     );
   }
 }
