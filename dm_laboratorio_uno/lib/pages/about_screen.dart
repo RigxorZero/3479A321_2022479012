@@ -19,7 +19,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              "¡Hola! Soy el desarrollador de esta aplicación.\nEste es un ejemplo de pantalla de presentación.",
+              "¡Hola! Soy Héctor Villalobos.\nEstudiante de Ingenieria en Desarrollo de Videojuegos y Realidad Virtual.",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),

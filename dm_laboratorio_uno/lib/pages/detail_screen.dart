@@ -3,6 +3,28 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
 
+  BottomAppBar btn_bar(BuildContext context) {
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // Regresa a la pantalla anterior
+            },
+            child: const Text("Volver"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/about');
+            },
+            child: const Text("Sobre mí"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,27 +35,13 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Pantalla de Detalles", style: TextStyle(fontSize: 24)),
+            const Text("Hora de descansar", style: TextStyle(fontSize: 24)),
+            Image.asset('assets/Images/peakpx.jpg', width: 400, height: 600),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Acción del botón 1 en Detalle")),
-                );
-              },
-              child: const Text("Botón 1"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Acción del botón 2 en Detalle")),
-                );
-              },
-              child: const Text("Botón 2"),
-            ),
           ],
         ),
       ),
+      bottomNavigationBar: btn_bar(context),
     );
   }
 }
