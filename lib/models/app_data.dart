@@ -1,29 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-class AppData extends ChangeNotifier {
-  // Contador
+class AppData with ChangeNotifier {
   int _counter = 0;
+  final List<String> _actions = [];
 
-  // Lista de acciones
-  List<String> _actions = [];
-
-  // Getter para el contador
   int get counter => _counter;
-
-  // Getter para la lista de acciones
   List<String> get actions => _actions;
 
-  // Método para incrementar el contador
   void incrementCounter() {
     _counter++;
-    _actions.add('Counter incremented to $_counter'); // Guardamos la acción
-    notifyListeners(); // Notificamos a los oyentes sobre los cambios
+    notifyListeners();
   }
 
-  // Método para resetear el contador
+  void decrementCounter() {
+    _counter--;
+    notifyListeners();
+  }
+
   void resetCounter() {
     _counter = 0;
-    _actions.add('Counter reset to $_counter');
+    notifyListeners();
+  }
+
+  void addAction(String action) {
+    _actions.add(action);
     notifyListeners();
   }
 }

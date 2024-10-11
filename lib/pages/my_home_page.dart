@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart'; // Asegúrate de importar Provider
-import '/models/app_data.dart'; // Asegúrate de importar tu clase AppData
+import 'package:provider/provider.dart'; 
+import '/models/app_data.dart'; 
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -18,8 +18,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Accede a la instancia de AppData usando context.watch para obtener el valor actualizado
-    var appData = context.watch<AppData>();
+    // Accede a la instancia de AppData
+    AppData appData = Provider.of<AppData>(context);
     logger.i("Building MyHomePage widget");
 
     // Método que retorna el mensaje y el ícono basado en el valor del contador
@@ -66,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ElevatedButton(
               onPressed: () {
+                appData.addAction("Acceso a Pantalla Detalle"); // Registra la acción
                 Navigator.pushNamed(context, '/detail'); // Navega a la pantalla Detalle
               },
               child: const Text("Ir a Detalles"),
@@ -101,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.info),
               title: const Text('Detalle'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Detalle"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/detail'); // Navega a la pantalla Detalle
               },
@@ -109,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.contact_page),
               title: const Text('Sobre'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Sobre"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/about'); // Navega a la pantalla Sobre
               },
@@ -117,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.history),
               title: const Text('Auditoría'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Auditoría"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/audit'); // Navega a la pantalla Auditoría
               },
@@ -126,40 +130,40 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Card(
-          elevation: 5, // Sombra para la tarjeta
-          margin: const EdgeInsets.all(16), // Espaciado alrededor de la tarjeta
+          elevation: 5,
+          margin: const EdgeInsets.all(16),
           child: Padding(
-            padding: const EdgeInsets.all(16), // Espaciado interno
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _getMessageIcon(), // Mostrar icono y mensaje
-                const SizedBox(height: 20), // Espacio entre el mensaje y el contador
+                _getMessageIcon(), 
+                const SizedBox(height: 20), 
                 Text(
-                  'Contador: ${appData.counter}', // Muestra el contador desde AppData
+                  'Contador: ${appData.counter}', 
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                const SizedBox(height: 20), // Espacio entre el contador y los botones
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
                       onPressed: () {
-                        context.read<AppData>().decrementCounter(); // Llama al método de decremento
+                        appData.decrementCounter();
                       },
-                      icon: const Icon(Icons.remove_circle, size: 40), // Icono de restar
+                      icon: const Icon(Icons.remove_circle, size: 40),
                     ),
                     IconButton(
                       onPressed: () {
-                        context.read<AppData>().resetCounter(); // Llama al método de reinicio
+                        appData.resetCounter();
                       },
-                      icon: const Icon(Icons.refresh, size: 40), // Icono de reinicio
+                      icon: const Icon(Icons.refresh, size: 40), 
                     ),
                     IconButton(
                       onPressed: () {
-                        context.read<AppData>().incrementCounter(); // Llama al método de incremento
+                        appData.incrementCounter(); 
                       },
-                      icon: const Icon(Icons.add_circle, size: 40), // Icono de sumar
+                      icon: const Icon(Icons.add_circle, size: 40), 
                     ),
                   ],
                 ),

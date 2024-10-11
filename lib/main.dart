@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:logger/logger.dart';
 import 'pages/my_home_page.dart';
 import 'pages/detail_screen.dart';
 import 'pages/about_screen.dart';
 import 'pages/audit_screen.dart';
+import 'models/app_data.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<AppData>(
+      create: (context) => AppData(),
+      child: const MyApp(),
+    ),
+  );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/models/app_data.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -27,18 +29,34 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Accede a la instancia de AppData
+    AppData appData = Provider.of<AppData>(context);
+
+    // Añade la acción de acceso en un callback post frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      appData.addAction("Accedió a Pantalla Detalle");
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Hora de descansar", style: TextStyle(fontSize: 24)),
-            Image.asset('assets/Images/peakpx.jpg', width: 400, height: 600),
-            const SizedBox(height: 20),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Hora de descansar", style: TextStyle(fontSize: 24)),
+              Image.asset('assets/Images/peakpx.jpg', width: 400, height: 600),
+              const SizedBox(height: 20),
+              // Mostrar el contador proveniente del Provider
+              Text(
+                'Contador: ${appData.counter}', // Muestra el contador desde AppData
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: btn_bar(context),
