@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuditScreen extends StatefulWidget {
-  const AuditScreen({Key? key}) : super(key: key);
+  const AuditScreen({super.key});
 
   @override
   _AuditScreenState createState() => _AuditScreenState();
