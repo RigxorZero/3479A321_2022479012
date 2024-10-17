@@ -32,11 +32,6 @@ class DetailScreen extends StatelessWidget {
     // Accede a la instancia de AppData
     AppData appData = Provider.of<AppData>(context);
 
-    // Añade la acción de acceso en un callback post frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      appData.addAction("Accedió a Pantalla Detalle");
-    });
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle"),
