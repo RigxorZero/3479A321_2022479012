@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart'; 
+import '/models/app_data.dart'; 
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -15,16 +18,74 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Accede a la instancia de AppData
+    AppData appData = Provider.of<AppData>(context);
+    logger.i("Building MyHomePage widget");
+
+    // Método que retorna el mensaje y el ícono basado en el valor del contador
+    Widget _getMessageIcon() {
+      if (appData.counter > 5) {
+        return Column(
+          children: [
+            SvgPicture.asset(
+              'assets/icons/finn.svg',
+              width: 100,
+              height: 100,
+            ),
+            const Text("¡Victoria!", style: TextStyle(fontSize: 24, color: Colors.green)),
+          ],
+        );
+      } else if (appData.counter < -5) {
+        return Column(
+          children: [
+            SvgPicture.asset(
+              'assets/icons/ghost.svg',
+              width: 100,
+              height: 100,
+            ),
+            const Text("Derrota", style: TextStyle(fontSize: 24, color: Colors.red)),
+          ],
+        );
+      } else {
+        return Column(
+          children: [
+            SvgPicture.asset(
+              'assets/icons/sword.svg',
+              width: 100,
+              height: 100,
+            ),
+            const Text("Jugando", style: TextStyle(fontSize: 24, color: Colors.blue)),
+          ],
+        );
+      }
+    }
+
+    BottomAppBar btn_bar() {
+      return BottomAppBar(
+        child: Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                appData.addAction("Acceso a Pantalla Detalle"); // Registra la acción
+                Navigator.pushNamed(context, '/detail'); // Navega a la pantalla Detalle
+              },
+              child: const Text("Ir a Detalles"),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: Drawer( // Drawer para el menú
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
+            const DrawerHeader(
+              decoration: BoxDecoration(
                 color: Colors.blue,
               ),
               child: Text('Menú Principal', style: TextStyle(fontSize: 24, color: Colors.white)),
@@ -41,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.info),
               title: const Text('Detalle'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Detalle"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/detail'); // Navega a la pantalla Detalle
               },
@@ -49,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.contact_page),
               title: const Text('Sobre'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Sobre"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/about'); // Navega a la pantalla Sobre
               },
@@ -57,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.history),
               title: const Text('Auditoría'),
               onTap: () {
+                appData.addAction("Acceso a Pantalla Auditoría"); // Registra la acción
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/audit'); // Navega a la pantalla Auditoría
               },
@@ -65,8 +129,50 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(
-        child: Text('Bienvenido a la pantalla principal'),
+        child: Card(
+          elevation: 5,
+          margin: const EdgeInsets.all(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _getMessageIcon(), 
+                const SizedBox(height: 20), 
+                Text(
+                  'Contador: ${appData.counter}', 
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        appData.decrementCounter();
+                      },
+                      icon: const Icon(Icons.remove_circle, size: 40),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        appData.resetCounter();
+                      },
+                      icon: const Icon(Icons.refresh, size: 40), 
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        appData.incrementCounter(); 
+                      },
+                      icon: const Icon(Icons.add_circle, size: 40), 
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
+      bottomNavigationBar: btn_bar(),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
+import '/models/app_data.dart';
 
 class AuditScreen extends StatefulWidget {
   const AuditScreen({super.key});
@@ -8,25 +10,21 @@ class AuditScreen extends StatefulWidget {
 }
 
 class _AuditScreenState extends State<AuditScreen> {
-  // Lista de historial de accesos
-  final List<String> _accessHistory = [
-    'Accedió a Pantalla Principal - 10:00 AM',
-    'Accedió a Pantalla Detalle - 10:05 AM',
-    'Accedió a Pantalla Sobre - 10:10 AM',
-  ];
-
   @override
   Widget build(BuildContext context) {
+    // Accede a la instancia de AppData
+    AppData appData = Provider.of<AppData>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Auditoría de Accesos'),
       ),
       body: ListView.builder(
-        itemCount: _accessHistory.length,
+        itemCount: appData.actions.length, // Usar la longitud de actions
         itemBuilder: (context, index) {
           return ListTile(
             leading: const Icon(Icons.history),
-            title: Text(_accessHistory[index]),
+            title: Text(appData.actions[index]), // Mostrar cada acción
           );
         },
       ),
