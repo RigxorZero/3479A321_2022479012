@@ -125,6 +125,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, '/audit'); // Navega a la pantalla Auditoría
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('Preferencias'),
+              onTap: () {
+                appData.addAction("Acceso a Pantalla Preferencias"); // Registra la acción
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/preferences'); // Navega a la pantalla preferencias
+              },
+            ),
           ],
         ),
       ),

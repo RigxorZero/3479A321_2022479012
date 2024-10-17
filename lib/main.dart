@@ -5,6 +5,7 @@ import 'pages/my_home_page.dart';
 import 'pages/detail_screen.dart';
 import 'pages/about_screen.dart';
 import 'pages/audit_screen.dart';
+import 'pages/preferences_screen.dart';
 import 'models/app_data.dart';
 
 void main() {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/detail': (context) => const DetailScreen(),
         '/about': (context) => const AboutScreen(),
         '/audit': (context) => const AuditScreen(),
+        '/preferences': (context) => const PreferenciaScreen(),
       },
     );
   }
