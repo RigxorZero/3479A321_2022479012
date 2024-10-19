@@ -14,8 +14,12 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Inicializa la base de datos antes de que la app se ejecute
-  await DatabaseHelper.getDatabase();
+  try {
+    await DatabaseHelper.getDatabase();
+  } catch (e) {
+    // Manejo de errores
+    print('Error al inicializar la base de datos: $e');
+  }
 
   runApp(
     ChangeNotifierProvider<AppData>(
