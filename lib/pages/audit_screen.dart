@@ -25,6 +25,15 @@ class _AuditScreenState extends State<AuditScreen> {
           return ListTile(
             leading: const Icon(Icons.history),
             title: Text(appData.actions[index]), // Mostrar cada acción
+            subtitle: Text('Acción ${index + 1} realizada.'), // Información adicional
+            trailing: IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              onPressed: () {
+                setState(() {
+                  appData.actions.removeAt(index); // Eliminar la acción
+                });
+              },
+            ),
           );
         },
       ),

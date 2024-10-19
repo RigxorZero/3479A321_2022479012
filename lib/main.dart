@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:logger/logger.dart';
+import 'package:sqflite/sqflite.dart';
 import 'pages/my_home_page.dart';
 import 'pages/detail_screen.dart';
 import 'pages/about_screen.dart';
 import 'pages/audit_screen.dart';
 import 'pages/preferences_screen.dart';
 import 'models/app_data.dart';
+import 'utils/DatabaseHelper.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializa la base de datos antes de que la app se ejecute
+  await DatabaseHelper.getDatabase();
+
   runApp(
     ChangeNotifierProvider<AppData>(
       create: (context) => AppData(),
