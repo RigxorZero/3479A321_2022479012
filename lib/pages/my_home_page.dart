@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart'; 
 import '/models/app_data.dart'; 
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,6 +16,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var logger = Logger();
+  String _username = '';
+  double _counterValue = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences(); // Cargar preferencias al iniciar la pantalla
+  }
+
+  // Método para cargar las preferencias
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = prefs.getString('username') ?? '';
+      _counterValue = prefs.getDouble('counter') ?? 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
